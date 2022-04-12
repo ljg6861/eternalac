@@ -1,3 +1,5 @@
+import 'package:eternalac/screens/login/login_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,15 +11,49 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final bloc = LoginBloc();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'ETERNAL A&C',
-          style: TextStyle(fontFamily: 'GrapeNuts', fontSize: 24),
+          'Eternal A&C',
+          style: TextStyle(fontSize: 24),
         ),
+      ),
+      body: Center(
+        child: StreamBuilder<User?>(
+            stream: bloc.userIsLoggedIn,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data == null) {
+                  return Column(
+                    children: [
+                      TextButton(
+                          onPressed: () {},
+                          child: Container(
+                            child: const Text('Log in'),
+                          )),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextButton(
+                          onPressed: () {},
+                          child: Container(
+                            child: const Text('Sign up'),
+                          ))
+                    ],
+                  );
+                } else {
+                  ///TODO navigate user to home screen
+                  return Container();
+                }
+              } else {
+                return const CircularProgressIndicator();
+              }
+            }),
       ),
     );
   }
