@@ -2,15 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LoginBloc {
-  Stream<User?> userIsLoggedIn;
+  Stream<Object> userIsLoggedIn;
 
   LoginBloc._({required this.userIsLoggedIn});
 
   factory LoginBloc() {
-    var userIsLoggedInController = BehaviorSubject<User?>();
+    var userIsLoggedInController = BehaviorSubject<Object>();
 
     var user = FirebaseAuth.instance.currentUser;
-    userIsLoggedInController.add(user);
+    userIsLoggedInController.add(user ?? false);
 
     return LoginBloc._(userIsLoggedIn: userIsLoggedInController);
   }

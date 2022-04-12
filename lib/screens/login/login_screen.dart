@@ -1,5 +1,4 @@
 import 'package:eternalac/screens/login/login_bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -24,11 +23,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       body: Center(
-        child: StreamBuilder<User?>(
+        child: StreamBuilder<Object>(
             stream: bloc.userIsLoggedIn,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                if (snapshot.data == null) {
+                if (snapshot.data == false) {
                   return Column(
                     children: [
                       TextButton(
