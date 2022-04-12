@@ -1,4 +1,5 @@
 import 'package:eternalac/screens/login/login_bloc.dart';
+import 'package:eternalac/screens/signup/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 20,
                       ),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => SignupScreen()));
+                          },
                           child: Container(
                             child: const Text('Sign up'),
                           ))
