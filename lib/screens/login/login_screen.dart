@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
         centerTitle: true,
         title: const Text(
           'Eternal A&C',
-          style: TextStyle(fontSize: 24),
+          style: TextStyle(fontSize: 34),
         ),
       ),
       body: Center(
@@ -62,19 +62,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Container(
                                     height: 20.0,
                                     width: 20.0,
-                                    decoration: const BoxDecoration(
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                'https://1000logos.net/wp-content/uploads/2016/11/New-Google-Logo.jpg'),
+                                    decoration: const BoxDecoration(shape: BoxShape.circle),
+                                        child:Image.asset(
+                                            'assets/New-Google-Logo.jpg',
                                             fit: BoxFit.fill),
-                                        shape: BoxShape.circle),
-                                  ),
+                                        ),
                                   const Text(
                                     'Log in with Google',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         color: Colors.black87,
-                                        fontSize: 16),
+                                        fontSize: 26),
                                   ),
                                 ],
                               ),
