@@ -38,11 +38,47 @@ class _LoginScreenState extends State<LoginScreen> {
                             var result = await signInWithGoogle();
                             if (result != null) {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => SignupScreen()));
+                                  builder: (context) => SignupScreen(
+                                        user: result,
+                                      )));
                             }
                           },
                           child: Container(
-                            child: const Text('Log in with Google'),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(20))),
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                left: 45,
+                                right: 45,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    height: 20.0,
+                                    width: 20.0,
+                                    decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                'https://1000logos.net/wp-content/uploads/2016/11/New-Google-Logo.jpg'),
+                                            fit: BoxFit.fill),
+                                        shape: BoxShape.circle),
+                                  ),
+                                  const Text(
+                                    'Log in with Google',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.black87,
+                                        fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
                           )),
                     ],
                   );
