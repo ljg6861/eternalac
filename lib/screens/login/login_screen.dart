@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../widgets/main_button.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -39,29 +41,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (snapshot.data == false) {
                   return Column(
                     children: [
-                      TextButton(
-                          onPressed: () async {
-                            var result = await signInWithGoogle();
-                            if (result != null) {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => SignupScreen(
-                                        user: result,
-                                      )));
-                            }
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(20))),
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                left: 45,
-                                right: 45,
-                              ),
+                      MainButton(
+                      onPressed: () async {
+                    var result = await signInWithGoogle();
+                    if (result != null) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SignupScreen(
+                            user: result,
+                          )));
+                    )};
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -82,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ],
                               ),
+              ),
                             ),
                           )),
                     ],
