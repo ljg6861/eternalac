@@ -20,7 +20,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    doPreProcessing();
     super.initState();
   }
 
@@ -31,11 +31,20 @@ class _SignupScreenState extends State<SignupScreen> {
         centerTitle: true,
         title: const Text('Eternal A&C'),
       ),
-      body: Column(
-        children: [
-          const Text('Thank you for signing in'),
-        ],
-      ),
+      body: isLoading == false
+          ? Column(
+              children: const [
+                Text('Thank you for signing in'),
+              ],
+            )
+          : Column(
+              children: [
+                const Expanded(
+                    child: Center(
+                  child: CircularProgressIndicator(),
+                )),
+              ],
+            ),
     );
   }
 
@@ -49,6 +58,7 @@ class _SignupScreenState extends State<SignupScreen> {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => HomeScreen(user: user)));
     } else {
+      print('here');
       setState(() {
         isLoading = false;
       });
