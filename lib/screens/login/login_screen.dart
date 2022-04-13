@@ -13,7 +13,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final bloc = LoginBloc();
+  late LoginBloc bloc;
+
+  @override
+  void didChangeDependencies() {
+    bloc = LoginBloc(context);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +87,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   );
                 } else {
-                  ///TODO navigate user to home screen
-                  return Container();
+                  Future.delayed(Duration(milliseconds: 500), () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            SignupScreen(user: snapshot.data as User)));
+                  });
+                  return CircularProgressIndicator();
                 }
               } else {
                 return const CircularProgressIndicator();

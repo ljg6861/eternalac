@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LoginBloc {
@@ -6,7 +7,7 @@ class LoginBloc {
 
   LoginBloc._({required this.userIsLoggedIn});
 
-  factory LoginBloc() {
+  factory LoginBloc(BuildContext context) {
     var userIsLoggedInController = BehaviorSubject<Object>();
 
     var user = FirebaseAuth.instance.currentUser;
