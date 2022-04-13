@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eternalac/model/eternal_user.dart';
+import 'package:eternalac/screens/home/home_screen.dart';
+import 'package:eternalac/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +16,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  bool isLoading = false;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -29,7 +32,9 @@ class _SignupScreenState extends State<SignupScreen> {
         title: const Text('Eternal A&C'),
       ),
       body: Column(
-        children: [const Text('Thank you for signing in')],
+        children: [
+          const Text('Thank you for signing in'),
+        ],
       ),
     );
   }
@@ -39,6 +44,14 @@ class _SignupScreenState extends State<SignupScreen> {
         .collection('users')
         .doc(widget.user.uid)
         .get();
-    if (userDataSnapshot.exists) {}
+    if (userDataSnapshot.exists) {
+      var user = EternalUser(widget.user, userDataSnapshot.data()![userType]);
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => HomeScreen(user: user)));
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 }

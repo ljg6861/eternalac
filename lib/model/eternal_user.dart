@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-enum UserType { anika, clarice }
+enum UserType { a, c }
 
 class EternalUser {
   final User user;
