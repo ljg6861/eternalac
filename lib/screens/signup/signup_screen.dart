@@ -33,8 +33,13 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
       body: isLoading == false
           ? Column(
-              children: const [
-                Text('Thank you for signing in'),
+              children: [
+                const Text(
+                  'Thank you for signing in\nWho are you?',
+                  textAlign: TextAlign.center,
+                ),
+                TextButton(onPressed: () {}, child: const Text('A')),
+                TextButton(onPressed: () {}, child: const Text('C')),
               ],
             )
           : Column(
