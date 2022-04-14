@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
         centerTitle: true,
         title: const Text(
           'Eternal A&C',
-          style: TextStyle(fontSize: 34),
+          style: TextStyle(fontSize: 48),
         ),
       ),
       body: Center(
@@ -40,8 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
               if (snapshot.hasData) {
                 if (snapshot.data == false) {
                   return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      MainButton(
+                        MainButton(
                         onPressed: () async {
                           var result = await signInWithGoogle();
                           if (result != null) {
@@ -52,25 +53,28 @@ class _LoginScreenState extends State<LoginScreen> {
                                         )));
                           }
                         },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              height: 20.0,
-                              width: 20.0,
-                              decoration:
-                                  const BoxDecoration(shape: BoxShape.circle),
-                              child: Image.asset('assets/New-Google-Logo.jpg',
-                                  fit: BoxFit.fill),
-                            ),
-                            const Text(
-                              'Log in with Google',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.black87,
-                                  fontSize: 26),
-                            ),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(24.0, 3.5, 24.0, 3.5),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                height: 23.0,
+                                width: 23.0,
+                                decoration:
+                                    const BoxDecoration(shape: BoxShape.circle),
+                                child: Image.asset('assets/New-Google-Logo.jpg',
+                                    fit: BoxFit.fill),
+                              ),
+                              const Text(
+                                'Log in with Google',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.black87,
+                                    fontSize: 26),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
