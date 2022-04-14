@@ -38,19 +38,49 @@ class _SignupScreenState extends State<SignupScreen> {
                   'Thank you for signing in\nWho are you?',
                   textAlign: TextAlign.center,
                 ),
-                TextButton(onPressed: () {}, child: const Text('A')),
-                TextButton(onPressed: () {}, child: const Text('C')),
+                TextButton(
+                    onPressed: () {
+                      createUser(UserType.a);
+                    },
+                    child: const Text('A')),
+                TextButton(
+                    onPressed: () {
+                      createUser(UserType.c);
+                    },
+                    child: const Text('C')),
               ],
             )
           : Column(
-              children: [
-                const Expanded(
+              children: const [
+                Expanded(
                     child: Center(
                   child: CircularProgressIndicator(),
                 )),
               ],
             ),
     );
+  }
+
+  void createUser(UserType type) async {
+    setState(() {
+      isLoading = true;
+    });
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.user.uid)
+        .set({'id': widget.user.uid, userType: type.toString()}).onError(
+            (error, stackTrace) {
+      setState(() {
+        isLoading = false;
+        return;
+      });
+    });
+    setState(() {
+      isLoading = false;
+    });
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) =>
+            HomeScreen(user: EternalUser(widget.user, type.toString()))));
   }
 
   void doPreProcessing() async {
@@ -63,7 +93,6 @@ class _SignupScreenState extends State<SignupScreen> {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => HomeScreen(user: user)));
     } else {
-      print('here');
       setState(() {
         isLoading = false;
       });

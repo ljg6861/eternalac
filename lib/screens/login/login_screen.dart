@@ -45,10 +45,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () async {
                           var result = await signInWithGoogle();
                           if (result != null) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => SignupScreen(
-                                      user: result,
-                                    )));
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) => SignupScreen(
+                                          user: result,
+                                        )));
                           }
                         },
                         child: Row(
@@ -76,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
                 } else {
                   Future.delayed(Duration(milliseconds: 500), () {
-                    Navigator.of(context).push(MaterialPageRoute(
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) =>
                             SignupScreen(user: snapshot.data as User)));
                   });
