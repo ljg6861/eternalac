@@ -42,37 +42,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   return Column(
                     children: [
                       MainButton(
-                      onPressed: () async {
-                    var result = await signInWithGoogle();
-                    if (result != null) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SignupScreen(
-                            user: result,
-                          )));
-                    )};
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Container(
-                                    height: 20.0,
-                                    width: 20.0,
-                                    decoration: const BoxDecoration(shape: BoxShape.circle),
-                                        child:Image.asset(
-                                            'assets/New-Google-Logo.jpg',
-                                            fit: BoxFit.fill),
-                                        ),
-                                  const Text(
-                                    'Log in with Google',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.black87,
-                                        fontSize: 26),
-                                  ),
-                                ],
-                              ),
-              ),
+                        onPressed: () async {
+                          var result = await signInWithGoogle();
+                          if (result != null) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => SignupScreen(
+                                      user: result,
+                                    )));
+                          }
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              height: 20.0,
+                              width: 20.0,
+                              decoration:
+                                  const BoxDecoration(shape: BoxShape.circle),
+                              child: Image.asset('assets/New-Google-Logo.jpg',
+                                  fit: BoxFit.fill),
                             ),
-                          )),
+                            const Text(
+                              'Log in with Google',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.black87,
+                                  fontSize: 26),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   );
                 } else {
