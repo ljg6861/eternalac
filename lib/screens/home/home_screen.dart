@@ -34,27 +34,36 @@ class HomeScreen extends StatelessWidget {
                         onPressed: () async {
                           var media = await takePicture();
                           mediaData = media;
+                          if (mediaData != null) {
+                            Navigator.of(context).pop();
+                            uploadMedia(mediaData!.first);
+                          }
                         },
                         child: const Text('Take Picture')),
                     TextButton(
                         onPressed: () async {
                           var media = await takeVideo();
                           mediaData = media;
+                          if (mediaData != null) {
+                            Navigator.of(context).pop();
+                            uploadMedia(mediaData!.first);
+                          }
                         },
                         child: const Text('Take Video')),
                     TextButton(
                         onPressed: () async {
                           var media = await chooseFromGallery();
                           mediaData = media;
+                          if (mediaData != null) {
+                            Navigator.of(context).pop();
+                            uploadMedia(mediaData!.first);
+                          }
                         },
                         child: const Text('Choose From Gallery')),
                   ],
                 )),
           );
         });
-    if (mediaData != null) {
-      uploadMedia(mediaData!.first);
-    }
   }
 
   @override
@@ -96,7 +105,7 @@ class HomeScreen extends StatelessWidget {
         .ref()
         .child(media.path)
         .putFile(File(media.path));
-    var downloadUrl = task.ref.getDownloadURL();
+    var downloadUrl = await task.ref.getDownloadURL();
     await FirebaseFirestore.instance
         .collection('messages')
         .add({'media': downloadUrl, 'from': user.user.uid});

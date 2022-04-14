@@ -11,7 +11,7 @@ class MainButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () => onPressed,
+        onPressed: () => onPressed(),
         child: Container(
           decoration: BoxDecoration(
               color: Colors.white,

@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                        MainButton(
+                      MainButton(
                         onPressed: () async {
                           var result = await signInWithGoogle();
                           if (result != null) {
@@ -54,7 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         },
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(24.0, 3.5, 24.0, 3.5),
+                          padding:
+                              const EdgeInsets.fromLTRB(24.0, 3.5, 24.0, 3.5),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
