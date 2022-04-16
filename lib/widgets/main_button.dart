@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
   final Function onPressed;
-  final Widget child;
+  final Widget? child;
+  final String? text;
 
-  const MainButton({Key? key, required this.onPressed, required this.child})
+  const MainButton({Key? key, required this.onPressed, this.child, this.text})
       : super(key: key);
 
   @override
@@ -13,13 +14,17 @@ class MainButton extends StatelessWidget {
     return TextButton(
         onPressed: () => onPressed(),
         child: Container(
+          width: 200,
+          height: 40,
           decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: Colors.grey,
-              ),
+              color: Theme.of(context).primaryColor,
               borderRadius: const BorderRadius.all(Radius.circular(20))),
-          child: child,
+          child: child ??
+              Center(
+                  child: Text(
+                text!,
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              )),
         ));
   }
 }

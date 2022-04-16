@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eternalac/model/eternal_user.dart';
 import 'package:eternalac/screens/home/home_screen.dart';
 import 'package:eternalac/utils/constants.dart';
+import 'package:eternalac/widgets/main_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,26 +30,34 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Eternal A&C'),
+        title: const Text('ETERNAL A&C❤😍😘'),
       ),
       body: isLoading == false
-          ? Column(
-              children: [
-                const Text(
-                  'Thank you for signing in\nWho are you?',
-                  textAlign: TextAlign.center,
-                ),
-                TextButton(
-                    onPressed: () {
-                      createUser(UserType.a);
-                    },
-                    child: const Text('A')),
-                TextButton(
-                    onPressed: () {
-                      createUser(UserType.c);
-                    },
-                    child: const Text('C')),
-              ],
+          ? Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Thank you for signing in!\nWho are you?',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  MainButton(
+                      onPressed: () {
+                        createUser(UserType.a);
+                      },
+                      text: 'Anika'),
+                  MainButton(
+                      onPressed: () {
+                        createUser(UserType.c);
+                      },
+                      text: 'Chan'),
+                ],
+              ),
             )
           : Column(
               children: const [

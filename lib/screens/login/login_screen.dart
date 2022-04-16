@@ -29,8 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Eternal A&C',
-          style: TextStyle(fontSize: 48),
+          'ETERNAL A&C❤😍😘',
+          style: TextStyle(fontSize: 24),
         ),
       ),
       body: Center(
@@ -42,6 +42,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Container(
+                        child: Text(
+                          '❤',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
                       MainButton(
                         onPressed: () async {
                           var result = await signInWithGoogle();
@@ -53,29 +62,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                         )));
                           }
                         },
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(24.0, 3.5, 24.0, 3.5),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                height: 23.0,
-                                width: 23.0,
-                                decoration:
-                                    const BoxDecoration(shape: BoxShape.circle),
-                                child: Image.asset('assets/New-Google-Logo.jpg',
-                                    fit: BoxFit.fill),
-                              ),
-                              const Text(
-                                'Log in with Google',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.black87,
-                                    fontSize: 26),
-                              ),
-                            ],
-                          ),
+                        text: 'Log in with Google',
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      Container(
+                        child: Text(
+                          '❤',
+                          style: TextStyle(fontSize: 24),
                         ),
                       ),
                     ],
