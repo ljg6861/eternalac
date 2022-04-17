@@ -207,9 +207,15 @@ class _HomeScreenState extends State<HomeScreen> {
         .child(media.path)
         .putFile(File(media.path));
     var downloadUrl = await task.ref.getDownloadURL();
+    var users = await FirebaseFirestore.instance.collection('users').where('userType', isEqualTo: (widget.user.userType == UserType.a? UserType.c.toString():UserType.a.toString())).get();
+    var sendList = <String>[];
+    for (var user in users.docs){
+      sendList.add(user.data()['id']);
+    }
     await FirebaseFirestore.instance.collection('messages').add({
       'media': downloadUrl,
       'from': widget.user.user.uid,
+      'to' : sendList,
       'fromType': widget.user.userType.toString()
     });
   }

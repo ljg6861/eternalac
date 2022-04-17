@@ -90,8 +90,14 @@ class SendMessageScreen extends StatelessWidget {
   }
 
   void sendMessage() async {
+    var users = await FirebaseFirestore.instance.collection('users').where('userType', isEqualTo: (user.userType == UserType.a? UserType.c.toString():UserType.a.toString())).get();
+    var sendList = <String>[];
+    for (var user in users.docs){
+      sendList.add(user.data()['id']);
+    }
     await FirebaseFirestore.instance.collection('messages').add({
       'from': user.user.uid,
+      'to' : sendList,
       'content': controller.text,
       'fromType': user.userType.toString()
     });

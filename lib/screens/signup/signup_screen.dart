@@ -4,6 +4,7 @@ import 'package:eternalac/screens/home/home_screen.dart';
 import 'package:eternalac/utils/constants.dart';
 import 'package:eternalac/widgets/main_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -84,6 +85,11 @@ class _SignupScreenState extends State<SignupScreen> {
         return;
       });
     });
+    var token = await FirebaseMessaging.instance.getToken();
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.user.uid)
+        .update({'token': token});
     setState(() {
       isLoading = false;
     });
@@ -98,6 +104,13 @@ class _SignupScreenState extends State<SignupScreen> {
         .doc(widget.user.uid)
         .get();
     if (userDataSnapshot.exists) {
+      var token = await FirebaseMessaging.instance.getToken();
+      if (userDataSnapshot.data()!['token'] != token) {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.user.uid)
+            .update({'token': token});
+      }
       var user = EternalUser(widget.user, userDataSnapshot.data()![userType]);
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => HomeScreen(user: user)));
