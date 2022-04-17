@@ -1,38 +1,34 @@
 import * as functions from "firebase-functions";
-import * as admin from 'firebase-admin';
+import * as admin from "firebase-admin";
 
-//firebase messaging and firestore references
+admin.initializeApp();
+
+// firebase messaging and firestore references
 const fcm = admin.messaging();
+const db = admin.firestore();
 
- exports.newSubscriberNotification = functions.firestore
-        .document('messages/{messageId}')
-        .onCreate((snap, context) => {
+export const onMessageCreated = functions.firestore
+    .document("messages/{messageId}")
+    .onCreate(async (snap, context) => {
+      // You get the values of the newly created doc as follows:
+      const docData = snap.data();
+      console.log(docData);
+      console.log(context);
+      const listedUsers = snap.data()["to"];
 
-          //You get the values of the newly created doc as follows:
-          const docData = snap.data();
-          console.log(docData);
-          const listedUsers = context.params.to;
-
-            const payload = {
-            			data: { documentId: messageDoc.id },
-            			notification: {
-            				title: 'New Message',
-            				body: 'You received a new message!',
-            				clickAction: 'FLUTTER_NOTIFICATION_CLICK',
-            			},
-            		};
-          for (const user in listedUsers){
-            const tokenDocRef = db.collection('users').doc(user).token;
-            const response = await fcm.sendToDevice(tokenDocRef, payload);
-          }
-
-          //You get the parameters as follows:
-          const userId = context.params.from;
-
-          //console.log(userId);
-
-          const docId = context.params.docId;
-          //console.log(docId);
-
-          // You perform here the notification sending
-        });
+      const payload = {
+        notification: {
+          title: "New Message",
+          body: "You received a new message!",
+          clickAction: "FLUTTER_NOTIFICATION_CLICK",
+        },
+      };
+      for (let i = 0; i < listedUsers.length; i++) {
+        const user = listedUsers[i];
+        console.log(user);
+        const userDoc = await db.collection("users").doc(user).get();
+        const tokenDocRef = userDoc?.data()?.token;
+        const response = await fcm.sendToDevice(tokenDocRef, payload);
+        console.log(response.toString());
+      }
+    });

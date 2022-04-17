@@ -30,7 +30,7 @@ class SendMessageScreen extends StatelessWidget {
             children: [
               Text(
                 'Enter your message to ' +
-                    (user.userType == UserType.a ? 'C' : 'A'),
+                    (user.userType == UserType.a ? 'Chan' : 'Anika'),
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
@@ -90,14 +90,20 @@ class SendMessageScreen extends StatelessWidget {
   }
 
   void sendMessage() async {
-    var users = await FirebaseFirestore.instance.collection('users').where('userType', isEqualTo: (user.userType == UserType.a? UserType.c.toString():UserType.a.toString())).get();
+    var users = await FirebaseFirestore.instance
+        .collection('users')
+        .where('userType',
+            isEqualTo: (user.userType == UserType.a
+                ? UserType.c.toString()
+                : UserType.a.toString()))
+        .get();
     var sendList = <String>[];
-    for (var user in users.docs){
+    for (var user in users.docs) {
       sendList.add(user.data()['id']);
     }
     await FirebaseFirestore.instance.collection('messages').add({
       'from': user.user.uid,
-      'to' : sendList,
+      'to': sendList,
       'content': controller.text,
       'fromType': user.userType.toString()
     });
